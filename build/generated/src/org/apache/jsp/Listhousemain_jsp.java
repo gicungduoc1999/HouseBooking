@@ -66,15 +66,6 @@ public final class Listhousemain_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("    <link href=\"list.css\" rel=\"stylesheet\" type=\"text/css\"/>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
-      out.write("        \n");
-      out.write("                ");
-
-        List<House> list = new ArrayList<House>();
-        if(request.getAttribute("HouseList") != null){
-            list = (List<House>) request.getAttribute("HouseList");
-        }
-        
-      out.write("\n");
       out.write("            <div class=\"listContainer\">\n");
       out.write("      <div class=\"listWrapper\">\n");
       out.write("        <div class=\"listSearch\">\n");
@@ -91,11 +82,6 @@ public final class Listhousemain_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("            <button>Search</button>\n");
       out.write("          </div>\n");
       out.write("        </div>\n");
-      out.write("                      ");
-
-                for(House h : list){
-                
-      out.write("\n");
       out.write("          \n");
       out.write("        <div class=\"listResult\">\n");
       out.write("          <div class=\"searchItem\">\n");
@@ -138,13 +124,8 @@ public final class Listhousemain_jsp extends org.apache.jasper.runtime.HttpJspBa
       out.write("            </div>\n");
       out.write("          </div>\n");
       out.write("        </div>>\n");
-      out.write("                        ");
-
-                }
-                
-      out.write("\n");
       out.write("    </body>\n");
-      out.write("</html>\n");
+      out.write("</html>");
     } catch (Throwable t) {
       if (!(t instanceof SkipPageException)){
         out = _jspx_out;

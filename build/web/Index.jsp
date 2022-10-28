@@ -104,7 +104,7 @@
                 <img src="Images/vn.jpg" alt=""/>
             </div>
 
-            <form action="">
+            <form action="search-house-main" method="get" >
                 <div class="inputBox">
                     <h3>where to</h3>
                     <input type="text" placeholder="place name">
