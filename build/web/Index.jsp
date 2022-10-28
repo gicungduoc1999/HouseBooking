@@ -107,7 +107,7 @@
             <form action="search-house-main" method="get" >
                 <div class="inputBox">
                     <h3>where to</h3>
-                    <input type="text" placeholder="place name">
+                    <input type="text" name="whereTo" placeholder="place name">
                 </div>
                 <div class="inputBox">
                     <h3>how many</h3>
@@ -115,14 +115,14 @@
                 </div>
                 <div class="inputBox">
                     <h3>arrivals</h3>
-                    <input type="date">
+                    <input name="arrivals" type="date">
                 </div>
                 <div class="inputBox">
                     <h3>leaving</h3>
                     <input type="date">
                 </div>
                 <!-- <input type="submit" class="btn" value="book now" href="#packages" >  -->
-                <a href="Listhousemain.jsp" class="btn">book now</a>
+                <input type="submit" value="Book now" >
 
             </form>
 

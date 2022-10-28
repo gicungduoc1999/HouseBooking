@@ -5,12 +5,15 @@
  */
 package Controller;
 
+import Dao.HouseDAO;
+import Model.House;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -56,7 +59,15 @@ public class SearchHouseMain extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String whereTo = request.getParameter("whereTo");
+        String arrivals = request.getParameter("arrivals");
+        
+        HouseDAO dao = new HouseDAO();
+        
+        List<House> listHouse = dao.searchHouse(whereTo, arrivals);
+        
+        request.setAttribute("list", listHouse);
+        request.getRequestDispatcher("Listhousemain.jsp").forward(request, response);
     }
 
     /**
