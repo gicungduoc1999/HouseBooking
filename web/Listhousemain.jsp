@@ -57,6 +57,8 @@
                                     </span>
                                     <span class="siCancel0p"> ${house.description}</span>
                                     <span class="siCancel0p"> ${house.address}</span>
+                                    <span class="siCancel0p">  Check-in Date : ${house.postdate}</span>
+                                   
                                     <span class="siCancel0pSubtitle">
                                         ${house.description}
                                     </span>
@@ -69,7 +71,7 @@
                                     <div class="siDetailTexts">
                                         <span class="siPrice"></span>
                                         <span class="siTax0p">Includes taxes and fees</span>
-                                        <button class="siCheckButton">See availability</button>
+                                        <a href="housepage?houseId=${house.houseid}" >  <button class="siCheckButton">See availability</button></a>
                                     </div>
                                 </div>
                             </div>

@@ -148,6 +148,10 @@
         <servlet-name>SearchHouseMain</servlet-name>
         <servlet-class>Controller.SearchHouseMain</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HousePageServlet</servlet-name>
+        <servlet-class>Controller.HousePageServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListAccountServlet</servlet-name>
         <url-pattern>/ListAccountServlet</url-pattern>
@@ -303,6 +307,10 @@
     <servlet-mapping>
         <servlet-name>SearchHouseMain</servlet-name>
         <url-pattern>/search-house-main</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HousePageServlet</servlet-name>
+        <url-pattern>/housepage</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
