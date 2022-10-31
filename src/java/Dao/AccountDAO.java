@@ -94,6 +94,48 @@ public class AccountDAO {
 
         return a;
     }
+
+    public int countAccountByRole(int role) {
+        String sql = "select count(*) from Users where role_id = ?";
+        int count = 0;
+
+        try {
+            //tạo khay chứa câu lệnh
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, role);
+            //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
+            ResultSet resultSet = pre.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+
+            }
+        } catch (Exception e) {
+            System.out.println("error: " + e);
+        }
+
+        return count;
+    }
+
+    public int countAccount() {
+        String sql = "select count(*) from Users ";
+        int count = 0;
+
+        try {
+            //tạo khay chứa câu lệnh
+            PreparedStatement pre = con.prepareStatement(sql);
+            //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
+            ResultSet resultSet = pre.executeQuery();
+            while (resultSet.next()) {
+                count = resultSet.getInt(1);
+
+            }
+        } catch (Exception e) {
+            System.out.println("error: " + e);
+        }
+
+        return count;
+    }
+
     public Account getAccountbyEmail(String emailInput) {
         String sql = "select * from dbo.Users where email = ?";
         Account a = new Account();
@@ -124,11 +166,12 @@ public class AccountDAO {
         }
 
         return a;
-    } 
+    }
+
     public Account checkAccountByEmail(String emailInput) {
         try {
             String sql = "select email from dbo.Users where email = ?  ";
-            
+
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setString(1, emailInput);
@@ -340,15 +383,16 @@ public class AccountDAO {
         }
         return false;
     }
-    public Account getAccounts(){
+
+    public Account getAccounts() {
         String sql = "select * from dbo.Users";
         Account a = new Account();
-        try{
+        try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
             //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
             ResultSet resultSet = pre.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int userid = resultSet.getInt(1);
                 String fullname = resultSet.getString(2);
                 String userimg = resultSet.getString(3);
@@ -360,10 +404,10 @@ public class AccountDAO {
 
                 //tạo model hứng giữ liệu
                 Role role = new Role(roleid, null);
-               a = new Account(userid, fullname, userimg, username, phone, sql, phone, status, role);
+                a = new Account(userid, fullname, userimg, username, phone, sql, phone, status, role);
             }
         } catch (Exception e) {
-            System.out.println("error: "+e);
+            System.out.println("error: " + e);
         }
         return a;
     }
