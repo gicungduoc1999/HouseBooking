@@ -70,7 +70,7 @@ public class LoginServlet extends HttpServlet {
                                 cPassword.setMaxAge(60 * 60 * 24);
                                 response.addCookie(cUsername);
                                 response.addCookie(cPassword);
-                                response.sendRedirect("AdminIndex.jsp");
+                                response.sendRedirect("dashboard");
                                 flag = true;
                             }
                             else if (username.equals(acc.getUsername()) && password.equals(acc.getPass())
@@ -106,7 +106,7 @@ public class LoginServlet extends HttpServlet {
                                 session.setAttribute("username", acc.getUsername());
                                 session.setAttribute("password", acc.getPass());
                                 session.setAttribute("rememberme", rememberMe);
-                                response.sendRedirect("AdminIndex.jsp");
+                                response.sendRedirect("dashboard");
                                 flag = true;
                             }
                             else if (username.equals(acc.getUsername()) && password.equals(acc.getPass())
