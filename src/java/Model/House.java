@@ -23,7 +23,6 @@ public class House {
     private String description;
     private Location location;
     private Menu menu;
-    private int numberBill;
 
     public House() {
     }
@@ -40,16 +39,6 @@ public class House {
         this.location = location;
         this.menu = menu;
     }
-
-    public int getNumberBill() {
-        return numberBill;
-    }
-
-    public void setNumberBill(int numberBill) {
-        this.numberBill = numberBill;
-    }
-    
-    
 
     public int getHouseid() {
         return houseid;

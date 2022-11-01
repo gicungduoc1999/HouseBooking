@@ -21,6 +21,25 @@
         <link href="css/list_house_main.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
+        
+        <header>
+
+            <a href="Index.jsp" class="logo"><span>H</span>ouse<span>B</span>ooking</a>
+
+            <nav class="navbar">
+                <a href="Index.jsp">home</a>
+                <a href="Index.jsp#book">book</a>
+                <a href="Index.jsp#packages">room</a>
+                <a href="Index.jsp#services">services</a>
+                <a href="Index.jsp#contact">contact</a>
+            </nav>
+            <div class="icons">
+                <a href="login.jsp">
+                    <i class="fas fa-user" id=""></i>
+                </a>
+            </div>
+
+        </header>
         <div class="listContainer">
             <div class="listWrapper">
                 <div class="listSearch">
@@ -57,7 +76,7 @@
                                     </span>
                                     <span class="siCancel0p"> ${house.description}</span>
                                     <span class="siCancel0p"> ${house.address}</span>
-                                    <span class="siCancel0p">  Check-in Date : ${house.postdate}</span>
+                                    <span class="siCancel0p">  Available : ${house.status}</span>
                                    
                                     <span class="siCancel0pSubtitle">
                                         ${house.description}

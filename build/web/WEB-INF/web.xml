@@ -152,14 +152,6 @@
         <servlet-name>HousePageServlet</servlet-name>
         <servlet-class>Controller.HousePageServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>UploadImageServlet</servlet-name>
-        <servlet-class>Controller.UploadImageServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>DashboardServlet</servlet-name>
-        <servlet-class>Controller.DashboardServlet</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>ListAccountServlet</servlet-name>
         <url-pattern>/ListAccountServlet</url-pattern>
@@ -319,14 +311,6 @@
     <servlet-mapping>
         <servlet-name>HousePageServlet</servlet-name>
         <url-pattern>/housepage</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UploadImageServlet</servlet-name>
-        <url-pattern>/upload-image</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DashboardServlet</servlet-name>
-        <url-pattern>/dashboard</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

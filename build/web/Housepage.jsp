@@ -21,6 +21,8 @@
 
         <!-- custom css file link  -->
         <link href="css/housepage.css" rel="stylesheet" type="text/css"/>
+        
+
     </head>
 
 
@@ -31,25 +33,16 @@
 
             <nav class="navbar">
                 <a href="Index.jsp">home</a>
-                <a href="Index.jsp">book</a>
-                <a href="Index.jsp">room</a>
-                <a href="Index.jsp">services</a>
-                <a href="Index.jsp">gallery</a>
-                <a href="Index.jsp">review</a>
-                <a href="Index.jsp">contact</a>
+                <a href="Index.jsp#book">book</a>
+                <a href="Index.jsp#packages">room</a>
+                <a href="Index.jsp#services">services</a>
+                <a href="Index.jsp#contact">contact</a>
             </nav>
-            ${username}
             <div class="icons">
-                <i class="fas fa-search" id="search-btn"></i>
                 <a href="login.jsp">
                     <i class="fas fa-user" id=""></i>
                 </a>
             </div>
-
-            <form action="" class="search-bar-container">
-                <input type="search" id="search-bar" placeholder="search here...">
-                <label for="search-bar" class="fas fa-search"></label>
-            </form>
 
         </header>
 
@@ -82,13 +75,30 @@
                         <h2>
                             <b>${house.houseprice}</b>
                         </h2>
-                        <form action="housepage" method="post">
+                        
+                        <button type="" id="open-bill">Reserve or Book Now</button>
+                            <div class="login-form-container">
+
+        <i class="fas fa-times" id="form-close"></i>
+
+        <form action="housepage" method="post">
+            <h3>Bill</h3>
+            <<p class="box">${house.houseprice}</p>
+              <input type="text" value="${house.houseid}" hidden="" name="houseid" >
+              startdate:  <input class="box" required="" type="date" name="startdate" >
+              enddate:  <input class="box" required="" type="date" name="enddate" >
+              note: <input type="text" name="note" >
+              <button type="submit" class="btn">Reserve or Book Now</button>
+        </form>
+
+    </div>
+<!--                        <form action="housepage" method="post">
                             <input type="text" value="${house.houseid}" hidden="" name="houseid" >
                             startdate:  <input required="" type="date" name="startdate" >
                             enddate:  <input required="" type="date" name="enddate" >
                             note: <input type="text" name="note" >
                             <button type="submit" >Reserve or Book Now</button>
-                        </form>
+                        </form>-->
 
                     </div>
                 </div>
@@ -219,4 +229,6 @@
             alert(mess);
         }
     </script>
+    
+            <script src="Housepage.js" type="text/javascript"></script>
 </html>

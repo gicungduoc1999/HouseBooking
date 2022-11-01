@@ -6,7 +6,6 @@
 
 <%@page import="Model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -64,26 +63,43 @@
          <div class="box-container">
 
             <div class="box">
-                <p style="color: black" >total pendings </p>
-                   <c:forEach items="${listHouse}" var="house">
-                       <p> <span style="color: black" >${house.housename}</span>  : ${house.numberBill} selected  </p>
-                   </c:forEach>
-               
+               <h3></h3>
+               <p>total pendings</p>
             </div>
 
             <div class="box">
                <h3></h3>
-               <p>Number of normal users : ${countUser}</p>
+               <p>completed payments</p>
             </div>
 
             <div class="box">
                <h3></h3>
-               <p>Number of admin users : ${countAdmin}</p>
+               <p>order placed</p>
             </div>
 
             <div class="box">
                <h3></h3>
-               <p>total accounts : ${countAll}</p>
+               <p>products added</p>
+            </div>
+
+            <div class="box">
+               <h3></h3>
+               <p>normal users</p>
+            </div>
+
+            <div class="box">
+               <h3></h3>
+               <p>admin users</p>
+            </div>
+
+            <div class="box">
+               <h3></h3>
+               <p>total accounts</p>
+            </div>
+
+            <div class="box">
+               <h3></h3>
+               <p>new messages</p>
             </div>
 
          </div>
