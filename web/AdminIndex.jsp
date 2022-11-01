@@ -70,6 +70,14 @@
                    </c:forEach>
                
             </div>
+             
+               <div class="box">
+                <p style="color: black" >total user have max bill </p>
+                   <c:forEach items="${listAcount}" var="acount">
+                       <p> <span style="color: black" >${acount.username}</span>  : ${acount.total} $  </p>
+                   </c:forEach>
+               
+            </div>
 
             <div class="box">
                <h3></h3>

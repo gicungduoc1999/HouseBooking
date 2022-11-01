@@ -19,9 +19,9 @@ import java.util.List;
  * @author Admin
  */
 public class AccountDAO {
-
+    
     Connection con;
-
+    
     public AccountDAO() {
         DBContext dbcontext = new DBContext();
         try {
@@ -31,7 +31,7 @@ public class AccountDAO {
             System.out.println("error: " + e);
         }
     }
-
+    
     public List<Account> getAllAccount() {
         String sql = "select * from dbo.Users";
         List<Account> list = new ArrayList<>();
@@ -59,14 +59,44 @@ public class AccountDAO {
         } catch (Exception e) {
             System.out.println("error: " + e);
         }
-
+        
         return list;
     }
+    
+    public List<Account> getThreeUserMaxBill() {
+        String sql = "select top 3 Users.user_id,username, MAX(Bill.total)\n"
+                + "from Bill ,Users\n"
+                + "where Bill.user_id = Users.user_id\n"
+                + "group by Users.user_id ,username";
+        List<Account> list = new ArrayList<>();
+        try {
+            //tạo khay chứa câu lệnh
+            PreparedStatement pre = con.prepareStatement(sql);
+            //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
+            ResultSet resultSet = pre.executeQuery();
+            while (resultSet.next()) {
+                int userid = resultSet.getInt(1);
+                String username = resultSet.getString(2);
+                float total = resultSet.getFloat(3);
 
+                //tạo model hứng giữ liệu
+                Account account = new Account();
+                account.setUserid(userid);
+                account.setUsername(username);
+                account.setTotal(total);
+                list.add(account);
+            }
+        } catch (Exception e) {
+            System.out.println("error: " + e);
+        }
+        
+        return list;
+    }
+    
     public Account getAccountbyId(int id) {
         String sql = "select * from dbo.Users where user_id = ?";
         Account a = new Account();
-
+        
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
@@ -91,14 +121,14 @@ public class AccountDAO {
         } catch (Exception e) {
             System.out.println("error: " + e);
         }
-
+        
         return a;
     }
-
+    
     public int countAccountByRole(int role) {
         String sql = "select count(*) from Users where role_id = ?";
         int count = 0;
-
+        
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
@@ -107,19 +137,19 @@ public class AccountDAO {
             ResultSet resultSet = pre.executeQuery();
             while (resultSet.next()) {
                 count = resultSet.getInt(1);
-
+                
             }
         } catch (Exception e) {
             System.out.println("error: " + e);
         }
-
+        
         return count;
     }
-
+    
     public int countAccount() {
         String sql = "select count(*) from Users ";
         int count = 0;
-
+        
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
@@ -127,19 +157,19 @@ public class AccountDAO {
             ResultSet resultSet = pre.executeQuery();
             while (resultSet.next()) {
                 count = resultSet.getInt(1);
-
+                
             }
         } catch (Exception e) {
             System.out.println("error: " + e);
         }
-
+        
         return count;
     }
-
+    
     public Account getAccountbyEmail(String emailInput) {
         String sql = "select * from dbo.Users where email = ?";
         Account a = new Account();
-
+        
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
@@ -164,10 +194,10 @@ public class AccountDAO {
         } catch (Exception e) {
             System.out.println("error: " + e);
         }
-
+        
         return a;
     }
-
+    
     public Account checkAccountByEmail(String emailInput) {
         try {
             String sql = "select email from dbo.Users where email = ?  ";
@@ -184,10 +214,10 @@ public class AccountDAO {
         } catch (Exception e) {
             System.out.println("error: " + e);
         }
-
+        
         return null;
     }
-
+    
     public void editAccount(Account account) {
         String sql = "UPDATE [dbo].[Users]\n"
                 + "   SET [fullname] = ?\n"
@@ -214,12 +244,12 @@ public class AccountDAO {
             pre.setInt(9, account.getUserid());
             //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
             pre.executeUpdate();
-
+            
         } catch (Exception e) {
             System.out.println("error :  " + e);
         }
     }
-
+    
     public void deleteAccount(int id) {
         String sql = "DELETE FROM [dbo].[Users]\n"
                 + "      WHERE user_id = ?";
@@ -227,12 +257,12 @@ public class AccountDAO {
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, id);
             pre.executeUpdate();
-
+            
         } catch (Exception e) {
             System.out.println("error :  " + e);
         }
     }
-
+    
     public Account checkAccountExist(String usernameInput) {
         String sql = "select * from dbo.Users where username = ?";
         Account a = null;
@@ -256,14 +286,14 @@ public class AccountDAO {
                 Role role = new Role(roleid, null);
                 a = new Account(userid, fullname, userimg, username, password, email, phone, status, role);
             }
-
+            
         } catch (Exception e) {
             System.out.println("error :  " + e);
         }
-
+        
         return a;
     }
-
+    
     public void signupAccount(Account a) {
         String sql = "INSERT INTO [dbo].[Users]\n"
                 + "           ([fullname]\n"
@@ -298,11 +328,11 @@ public class AccountDAO {
             System.out.println("error :  " + e);
         }
     }
-
+    
     public Account getAccountLogin(String usernameInput, String passwordInput) {
         String sql = "select * from dbo.Users where username = ? and password = ?";
         Account a = null;
-
+        
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
@@ -325,16 +355,16 @@ public class AccountDAO {
                 //tạo model hứng giữ liệu
                 Role role = new Role(roleid, null);
                 a = new Account(userid, fullname, userimg, username, password, email, phone, status, role);
-
+                
             }
-
+            
         } catch (Exception e) {
             System.out.println("error :  " + e);
         }
-
+        
         return a;
     }
-
+    
     public List<Account> getAccountbyName(String name) {
         String sql = "select * from Users where fullname like '%" + name + "%'";
         ArrayList<Account> list = new ArrayList<>();
@@ -362,10 +392,10 @@ public class AccountDAO {
         } catch (Exception e) {
             System.out.println("error: " + e);
         }
-
+        
         return list;
     }
-
+    
     public boolean updateAccountStatus(int status, String username) {
         String sql = "UPDATE [dbo].[Users]\n"
                 + "   SET [status] = ?\n"
@@ -383,7 +413,7 @@ public class AccountDAO {
         }
         return false;
     }
-
+    
     public Account getAccounts() {
         String sql = "select * from dbo.Users";
         Account a = new Account();

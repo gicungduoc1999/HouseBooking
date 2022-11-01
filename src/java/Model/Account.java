@@ -19,6 +19,7 @@ public class Account {
     private String phone;
     private int status;
     private Role role;
+    private float total;
 
     public Account() {
     }
@@ -38,6 +39,16 @@ public class Account {
         this.status = status;
         this.role = role;
     }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+    
+    
 
     public int getUserid() {
         return userid;
