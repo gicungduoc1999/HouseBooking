@@ -138,7 +138,29 @@ public class HousePageServlet extends HttpServlet {
             return;
         }
 
+        //check start ,end date
         BillDetailDAO biBillDetailDAO = new BillDetailDAO();
+        BillDetail billDetailCheck = biBillDetailDAO.getBillDeatailbyhouId(houseId);
+        if (billDetailCheck != null) {
+            if (checkDateExit(billDetailCheck, startdate)) {
+                request.setAttribute("mess", "start date exist");
+                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+                return;
+            }
+
+            if (checkDateExit(billDetailCheck, enddate)) {
+                request.setAttribute("mess", "end date exist");
+                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+                return;
+            }
+            if (startdate.before(billDetailCheck.getStartdate()) && enddate.after(billDetailCheck.getStartdate()) ) {
+                 request.setAttribute("mess", "start date exist && end date exist");
+                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+                return;
+            }
+            
+        }
+
         BillDetail billDetail = new BillDetail(-1, idBill, houseId, startdate, enddate, note);
 
         int idBillDetail = biBillDetailDAO.addBillDetail(billDetail);
@@ -152,6 +174,15 @@ public class HousePageServlet extends HttpServlet {
 
         request.setAttribute("mess", "Add bill sucess");
         request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+    }
+
+    private boolean checkDateExit(BillDetail billDetail, Date date) {
+        boolean check = false;
+        if (date.after(billDetail.getStartdate()) && date.before(billDetail.getEnddate())) {
+            check = true;
+        }
+        return check;
+
     }
 
     private Date covertDate(String dateString) throws ParseException {

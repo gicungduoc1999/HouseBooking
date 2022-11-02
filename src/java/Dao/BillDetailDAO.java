@@ -86,6 +86,34 @@ public class BillDetailDAO {
         return b;
     }
     
+      public BillDetail getBillDeatailbyhouId(int id){
+        String sql = "select * from Bill_detail where house_id = ?";
+        BillDetail b = null;
+        
+        try {
+            //tạo khay chứa câu lệnh
+            PreparedStatement pre = con.prepareStatement(sql);
+            pre.setInt(1, id);
+            //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
+            ResultSet resultSet = pre.executeQuery();
+            while(resultSet.next()){
+                int billdetailid = resultSet.getInt(1);
+                int billid = resultSet.getInt(2);
+                int houseid = resultSet.getInt(3);
+                Date startdate = resultSet.getDate(4);
+                Date enđate = resultSet.getDate(5);
+                String note = resultSet.getString(6);
+
+                //tạo model hứng giữ liệu
+                b = new BillDetail(billdetailid, billid, houseid, startdate, enđate, note);
+            }
+        } catch (Exception e) {
+            System.out.println("error: "+e);
+        }
+        
+        return b;
+    }
+    
     public void editBillDetail(BillDetail billdetail){
         String sql = "UPDATE [dbo].[Bill_detail]\n" +
                     "   SET [bill_id] = ?\n" +
