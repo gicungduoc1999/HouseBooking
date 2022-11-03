@@ -51,7 +51,7 @@ public class AdditionalServiceDAO {
 
         return list;
     }
-    
+
     public void editAdditionalService(AdditionalService as) {
         String sql = "UPDATE [dbo].[Additional_service]\n" +
                     "   SET [add_serviceName] = ?\n" +

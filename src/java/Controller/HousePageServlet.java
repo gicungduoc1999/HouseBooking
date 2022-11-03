@@ -6,14 +6,18 @@
 package Controller;
 
 import Dao.AccountDAO;
+import Dao.AdditionalServiceDAO;
 import Dao.BillDAO;
 import Dao.BillDetailDAO;
+import Dao.HouseAdditionalServiceDAO;
 import Dao.HouseDAO;
 import Dao.HouseImgDAO;
 import Model.Account;
+import Model.AdditionalService;
 import Model.Bill;
 import Model.BillDetail;
 import Model.House;
+import Model.HouseAdditionalService;
 import Model.HouseImg;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -110,6 +114,11 @@ public class HousePageServlet extends HttpServlet {
         House house = hdao.getHousebyId(houseId);
         float total = house.getHouseprice();
         //TODO : total + list price service
+        HouseAdditionalServiceDAO asdao = new HouseAdditionalServiceDAO();
+        List<HouseAdditionalService> listService = asdao.getHouseAdditionalServicebyID(houseId);
+        for (HouseAdditionalService additionalService : listService) {
+            total += additionalService.getServiceprice();
+        }
 
         //add bill
         Bill bill = new Bill(-1, new Date(), total, 1, user.getUserid());
@@ -153,12 +162,12 @@ public class HousePageServlet extends HttpServlet {
                 request.getRequestDispatcher("Housepage.jsp").forward(request, response);
                 return;
             }
-            if (startdate.before(billDetailCheck.getStartdate()) && enddate.after(billDetailCheck.getStartdate()) ) {
-                 request.setAttribute("mess", "start date exist && end date exist");
+            if (startdate.before(billDetailCheck.getStartdate()) && enddate.after(billDetailCheck.getStartdate())) {
+                request.setAttribute("mess", "start date exist && end date exist");
                 request.getRequestDispatcher("Housepage.jsp").forward(request, response);
                 return;
             }
-            
+
         }
 
         BillDetail billDetail = new BillDetail(-1, idBill, houseId, startdate, enddate, note);
