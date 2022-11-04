@@ -12,6 +12,7 @@ public class AdditionalService {
     private int serviceid;
     private String servicename;
     private String servicedesc;
+    private float price;
 
     public AdditionalService() {
     }
@@ -21,6 +22,16 @@ public class AdditionalService {
         this.servicename = servicename;
         this.servicedesc = servicedesc;
     }
+
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+    
+    
 
     public int getServiceid() {
         return serviceid;

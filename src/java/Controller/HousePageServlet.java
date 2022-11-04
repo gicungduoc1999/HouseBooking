@@ -82,8 +82,13 @@ public class HousePageServlet extends HttpServlet {
         House house = hdao.getHousebyId(houseId);
         HouseImgDAO houImageDAO = new HouseImgDAO();
         List<HouseImg> listImage = houImageDAO.getHouseImgbyID(houseId);
+        
+        //load list service
+        AdditionalServiceDAO asdao = new AdditionalServiceDAO();
+       List<AdditionalService> listService = asdao.getAdditionalServiceByHouseId(houseId);
 
         request.setAttribute("house", house);
+        request.setAttribute("listService", listService);
         request.setAttribute("listImage", listImage);
         request.getRequestDispatcher("Housepage.jsp").forward(request, response);
     }

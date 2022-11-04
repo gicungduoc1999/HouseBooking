@@ -70,6 +70,13 @@
 
 
                 </div>
+                <h1>Service </h1>
+                <div>
+                    <c:forEach items="${listService}" var="service" >
+                        <h3>Service name : ${service.servicename} | ${service.price} $</h3>
+                        
+                    </c:forEach>
+                </div>
                 <div class="hotelDetails">
                     <div class="hotelDetailTexts">
                         <h1 class="hotelTitle">Description</h1>

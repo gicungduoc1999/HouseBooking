@@ -29,8 +29,8 @@
     <body>
         <%
         List<AdditionalService> list = new ArrayList<AdditionalService>();
-        if(request.getAttribute("List") != null){
-            list = (List<AdditionalService>) request.getAttribute("List");
+        if(request.getAttribute("list") != null){
+            list = (List<AdditionalService>) request.getAttribute("list");
         }
         %>
         <div class="header_fixed">
@@ -87,8 +87,8 @@
                     <td><%=a.getServicedesc() %></td>
                     <td>
                         <span class="action_btn">
-                            <a href="NextEditHouseAdditionalServiceServlet?id=<%=h.getHouseaddserviceid() %>">Update</a>
-                            <a href="DeleteHouseAdditionalServiceServlet?id=<%=h.getHouseid() %>">Delete</a>
+                            <a href="NextEditHouseAdditionalServiceServlet?id=<%=a.getServiceid()%>">Update</a>
+                            <a href="DeleteHouseAdditionalServiceServlet?id=<%=a.getServiceid() %>">Delete</a>
                         </span>
                     </td>
                 </tr>
