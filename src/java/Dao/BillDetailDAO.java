@@ -19,27 +19,29 @@ import java.util.List;
  * @author Admin
  */
 public class BillDetailDAO {
+
     Connection con;
-    public BillDetailDAO(){
+
+    public BillDetailDAO() {
         DBContext dbcontext = new DBContext();
         try {
             con = dbcontext.getConnection();
             System.out.println("Successful");
         } catch (Exception e) {
-            System.out.println("error: "+e);
+            System.out.println("error: " + e);
         }
     }
-    
-    public List<BillDetail> getBillDeatai(){
+
+    public List<BillDetail> getBillDeatai() {
         String sql = "select * from Bill_detail";
         List<BillDetail> list = new ArrayList<>();
-        
+
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
             //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
             ResultSet resultSet = pre.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int billdetailid = resultSet.getInt(1);
                 int billid = resultSet.getInt(2);
                 int houseid = resultSet.getInt(3);
@@ -52,23 +54,23 @@ public class BillDetailDAO {
                 list.add(b);
             }
         } catch (Exception e) {
-            System.out.println("error: "+e);
+            System.out.println("error: " + e);
         }
-        
+
         return list;
     }
-    
-    public BillDetail getBillDeatailbyID(int id){
+
+    public BillDetail getBillDeatailbyID(int id) {
         String sql = "select * from Bill_detail where billdetail_id = ?";
         BillDetail b = new BillDetail();
-        
+
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, id);
             //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
             ResultSet resultSet = pre.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int billdetailid = resultSet.getInt(1);
                 int billid = resultSet.getInt(2);
                 int houseid = resultSet.getInt(3);
@@ -80,23 +82,23 @@ public class BillDetailDAO {
                 b = new BillDetail(billdetailid, billid, houseid, startdate, enđate, note);
             }
         } catch (Exception e) {
-            System.out.println("error: "+e);
+            System.out.println("error: " + e);
         }
-        
+
         return b;
     }
-    
-      public BillDetail getBillDeatailbyhouId(int id){
+
+    public List<BillDetail> getBillDeatailbyhouId(int id) {
+        List<BillDetail> list = new ArrayList<BillDetail>();
         String sql = "select * from Bill_detail where house_id = ?";
-        BillDetail b = null;
-        
+
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, id);
             //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
             ResultSet resultSet = pre.executeQuery();
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 int billdetailid = resultSet.getInt(1);
                 int billid = resultSet.getInt(2);
                 int houseid = resultSet.getInt(3);
@@ -105,23 +107,24 @@ public class BillDetailDAO {
                 String note = resultSet.getString(6);
 
                 //tạo model hứng giữ liệu
-                b = new BillDetail(billdetailid, billid, houseid, startdate, enđate, note);
+                BillDetail b = new BillDetail(billdetailid, billid, houseid, startdate, enđate, note);
+                list.add(b);
             }
         } catch (Exception e) {
-            System.out.println("error: "+e);
+            System.out.println("error: " + e);
         }
-        
-        return b;
+
+        return list;
     }
-    
-    public void editBillDetail(BillDetail billdetail){
-        String sql = "UPDATE [dbo].[Bill_detail]\n" +
-                    "   SET [bill_id] = ?\n" +
-                    "      ,[house_id] = ?\n" +
-                    "      ,[start_date] = ?\n" +
-                    "      ,[end_date] = ?\n" +
-                    "      ,[note] = ?\n" +
-                    " WHERE billdetail_id = ?";
+
+    public void editBillDetail(BillDetail billdetail) {
+        String sql = "UPDATE [dbo].[Bill_detail]\n"
+                + "   SET [bill_id] = ?\n"
+                + "      ,[house_id] = ?\n"
+                + "      ,[start_date] = ?\n"
+                + "      ,[end_date] = ?\n"
+                + "      ,[note] = ?\n"
+                + " WHERE billdetail_id = ?";
         try {
             //tạo khay chứa câu lệnh
             PreparedStatement pre = con.prepareStatement(sql);
@@ -141,10 +144,10 @@ public class BillDetailDAO {
             System.out.println("error :  " + e);
         }
     }
-    
-    public void deleteBillDetail(int id){
-        String sql = "DELETE FROM [dbo].[Bill_detail]\n" +
-                    "      WHERE billdetail_id = ?";
+
+    public void deleteBillDetail(int id) {
+        String sql = "DELETE FROM [dbo].[Bill_detail]\n"
+                + "      WHERE billdetail_id = ?";
         try {
             PreparedStatement pre = con.prepareStatement(sql);
             pre.setInt(1, id);
@@ -154,24 +157,24 @@ public class BillDetailDAO {
             System.out.println("error :  " + e);
         }
     }
-    
-    public int addBillDetail(BillDetail billdetail){
-        String sql = "INSERT INTO [dbo].[Bill_detail]\n" +
-                    "           ([bill_id]\n" +
-                    "           ,[house_id]\n" +
-                    "           ,[start_date]\n" +
-                    "           ,[end_date]\n" +
-                    "           ,[note])\n" +
-                    "     VALUES\n" +
-                    "           (?\n" +
-                    "           ,?\n" +
-                    "           ,?\n" +
-                    "           ,?\n" +
-                    "           ,?)";
+
+    public int addBillDetail(BillDetail billdetail) {
+        String sql = "INSERT INTO [dbo].[Bill_detail]\n"
+                + "           ([bill_id]\n"
+                + "           ,[house_id]\n"
+                + "           ,[start_date]\n"
+                + "           ,[end_date]\n"
+                + "           ,[note])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
         int id = -1;
         try {
             //tạo khay chứa câu lệnh
-            PreparedStatement pre = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pre = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             //set gia tri cho dau ? 
             pre.setInt(1, billdetail.getBillid());
             pre.setInt(2, billdetail.getHouseid());
@@ -182,8 +185,8 @@ public class BillDetailDAO {
             pre.setString(5, billdetail.getNote());
             //chạy câu lệnh và tạo khay chứa kết quả câu lệnh
             pre.executeUpdate();
-            
-              //get id
+
+            //get id
             ResultSet generatedKeys = pre.getGeneratedKeys();
             if (generatedKeys.next()) {
                 id = generatedKeys.getInt(1);
@@ -194,12 +197,11 @@ public class BillDetailDAO {
         } catch (Exception e) {
             System.out.println("error :  " + e);
         }
-        
+
         return id;
     }
-    
+
 //        public static void main(String[] args) {
 //        BillDetailDAO a = new BillDetailDAO();
 //    }
-    
 }

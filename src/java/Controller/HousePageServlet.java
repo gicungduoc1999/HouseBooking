@@ -82,10 +82,10 @@ public class HousePageServlet extends HttpServlet {
         House house = hdao.getHousebyId(houseId);
         HouseImgDAO houImageDAO = new HouseImgDAO();
         List<HouseImg> listImage = houImageDAO.getHouseImgbyID(houseId);
-        
+
         //load list service
         AdditionalServiceDAO asdao = new AdditionalServiceDAO();
-       List<AdditionalService> listService = asdao.getAdditionalServiceByHouseId(houseId);
+        List<AdditionalService> listService = asdao.getAdditionalServiceByHouseId(houseId);
 
         request.setAttribute("house", house);
         request.setAttribute("listService", listService);
@@ -154,24 +154,29 @@ public class HousePageServlet extends HttpServlet {
 
         //check start ,end date
         BillDetailDAO biBillDetailDAO = new BillDetailDAO();
-        BillDetail billDetailCheck = biBillDetailDAO.getBillDeatailbyhouId(houseId);
+        List<BillDetail> billDetailCheck = biBillDetailDAO.getBillDeatailbyhouId(houseId);
         if (billDetailCheck != null) {
-            if (checkDateExit(billDetailCheck, startdate)) {
-                request.setAttribute("mess", "start date exist");
+            if (checkStartEndDateExit(billDetailCheck, startdate, enddate)) {
+                request.setAttribute("mess", "date bill exist");
                 request.getRequestDispatcher("Housepage.jsp").forward(request, response);
                 return;
             }
-
-            if (checkDateExit(billDetailCheck, enddate)) {
-                request.setAttribute("mess", "end date exist");
-                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
-                return;
-            }
-            if (startdate.before(billDetailCheck.getStartdate()) && enddate.after(billDetailCheck.getStartdate())) {
-                request.setAttribute("mess", "start date exist && end date exist");
-                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
-                return;
-            }
+//            if (checkDateExit(billDetailCheck, startdate)) {
+//                request.setAttribute("mess", "start date exist");
+//                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+//                return;
+//            }
+//
+//            if (checkDateExit(billDetailCheck, enddate)) {
+//                request.setAttribute("mess", "end date exist");
+//                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+//                return;
+//            }
+//            if (checkDateExit(billDetailCheck, startdate, enddate)) {
+//                request.setAttribute("mess", "start date exist && end date exist");
+//                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+//                return;
+//            }
 
         }
 
@@ -190,13 +195,34 @@ public class HousePageServlet extends HttpServlet {
         request.getRequestDispatcher("Housepage.jsp").forward(request, response);
     }
 
-    private boolean checkDateExit(BillDetail billDetail, Date date) {
+    private boolean checkDateExit(List<BillDetail> billDetail, Date date) {
         boolean check = false;
-        if (date.after(billDetail.getStartdate()) && date.before(billDetail.getEnddate())) {
-            check = true;
+        for (BillDetail billD : billDetail) {
+            if (date.before(billD.getStartdate()) || date.after(billD.getEnddate())) {
+                return true;
+            }
         }
         return check;
+    }
 
+    private boolean checkDateExit(List<BillDetail> billDetail, Date startDate, Date endDate) {
+        boolean check = false;
+        for (BillDetail billD : billDetail) {
+            if (startDate.after(billD.getStartdate()) && endDate.before(billD.getEnddate())) {
+                return true;
+            }
+        }
+        return check;
+    }
+    
+     private boolean checkStartEndDateExit(List<BillDetail> billDetail, Date startDate, Date endDate) {
+        boolean check = false;
+        for (BillDetail billD : billDetail) {
+            if (startDate.equals(billD.getStartdate()) || endDate.equals(billD.getEnddate())) {
+                return true;
+            }
+        }
+        return check;
     }
 
     private Date covertDate(String dateString) throws ParseException {
