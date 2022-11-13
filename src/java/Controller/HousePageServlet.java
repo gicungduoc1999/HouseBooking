@@ -90,6 +90,11 @@ public class HousePageServlet extends HttpServlet {
         request.setAttribute("house", house);
         request.setAttribute("listService", listService);
         request.setAttribute("listImage", listImage);
+  
+        if(request.getSession().getAttribute("mess")!=null){
+            request.setAttribute("mess", request.getSession().getAttribute("mess").toString());
+        }
+        
         request.getRequestDispatcher("Housepage.jsp").forward(request, response);
     }
 
@@ -157,8 +162,8 @@ public class HousePageServlet extends HttpServlet {
         List<BillDetail> billDetailCheck = biBillDetailDAO.getBillDeatailbyhouId(houseId);
         if (billDetailCheck != null) {
             if (checkStartEndDateExit(billDetailCheck, startdate, enddate)) {
-                request.setAttribute("mess", "date bill exist");
-                request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+                request.getSession().setAttribute("mess", "date bill exist");
+                response.sendRedirect("housepage?houseId=" + houseId + "");
                 return;
             }
 //            if (checkDateExit(billDetailCheck, startdate)) {
@@ -186,13 +191,13 @@ public class HousePageServlet extends HttpServlet {
 
         //check add sucess
         if (idBillDetail == -1) {
-            request.setAttribute("mess", "Add bill detail fail");
-            request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+            request.getSession().setAttribute("mess", "Add bill detail fail");
+            response.sendRedirect("housepage?houseId=" + houseId + "");
             return;
         }
 
-        request.setAttribute("mess", "Add bill sucess");
-        request.getRequestDispatcher("Housepage.jsp").forward(request, response);
+        request.getSession().setAttribute("mess", "Add bill sucess");
+        response.sendRedirect("housepage?houseId=" + houseId + "");
     }
 
     private boolean checkDateExit(List<BillDetail> billDetail, Date date) {
@@ -214,8 +219,8 @@ public class HousePageServlet extends HttpServlet {
         }
         return check;
     }
-    
-     private boolean checkStartEndDateExit(List<BillDetail> billDetail, Date startDate, Date endDate) {
+
+    private boolean checkStartEndDateExit(List<BillDetail> billDetail, Date startDate, Date endDate) {
         boolean check = false;
         for (BillDetail billD : billDetail) {
             if (startDate.equals(billD.getStartdate()) || endDate.equals(billD.getEnddate())) {
