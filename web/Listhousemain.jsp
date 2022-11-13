@@ -57,6 +57,7 @@
                                     </span>
                                     <span class="siCancel0p"> ${house.description}</span>
                                     <span class="siCancel0p"> ${house.address}</span>
+                                    <span class="siCancel0p">Province or City : ${house.location.name}</span>
                                     <span class="siCancel0p">  Check-in Date : ${house.postdate}</span>
                                    
                                     <span class="siCancel0pSubtitle">

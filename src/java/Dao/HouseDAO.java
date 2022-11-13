@@ -88,7 +88,7 @@ public class HouseDAO {
                 house.setHousename(houseName);
                 house.setNumberBill(numberBill);
                 list.add(house);
-             
+
             }
         } catch (Exception e) {
             System.out.println("error: " + e);
@@ -98,10 +98,11 @@ public class HouseDAO {
     }
 
     public List<House> searchHouse(String whereTo, String arrivals) {
-        String sql = "select * \n"
-                + "from House \n"
-                + "where address like '%" + whereTo + "%' \n"
-                + "and post_date like '%" + arrivals + "%' ";
+        String sql = "select House.* , Location.name \n"
+                + "from House , Location\n"
+                + "where House.loca_id = Location.loca_id\n"
+                + "and Location.name like '%"+whereTo+"%'\n"
+                + "and post_date like '%"+arrivals+"%'";
         List<House> list = new ArrayList<>();
         try {
             //tạo khay chứa câu lệnh
@@ -119,10 +120,11 @@ public class HouseDAO {
                 String description = resultSet.getString(8);
                 int locationid = resultSet.getInt(9);
                 int menuid = resultSet.getInt(10);
+                String locationName = resultSet.getString(11);
 
                 //tạo model hứng giữ liệu
                 Menu menu = new Menu(menuid, null);
-                Location location = new Location(locationid, null);
+                Location location = new Location(locationid, locationName);
                 House h = new House(houseid, postdate, housename, review, price, status, address, description, location, menu);
                 list.add(h);
             }
